@@ -4,40 +4,56 @@ Moteur pas a pas (stepper)
 Moteur noté MOTEUR_1 
 Pour projet B_0105/agitateur
 
-*/
-void setup() {               
-  pinMode(8, OUTPUT); /* Direction */
-  pinMode(9, OUTPUT); /* pas */
-  digitalWrite(8, LOW); /* Direction */
-  digitalWrite(9, LOW); /* Step */
+Projet inspiré de http://www.schmalzhaus.com/EasyDriver/Examples/EasyDriverExamples.html
 
-    // initialize digital pin LED_BUILTIN as an output.
+
+*/
+
+// #define RPMS           104.0
+//  On EasyDriver v4.4n one pin commands The direction of the stepper and an other commands the step.  
+#define STEP_PIN           9
+#define DIRECTION_PIN      8
+
+#define DELAY_MICROSEC     1000
+
+void setup() {               
+  pinMode(DIRECTION_PIN, OUTPUT); 
+  pinMode(STEP_PIN, OUTPUT); 
+  
+  digitalWrite(DIRECTION_PIN, LOW); 
+  digitalWrite(STEP_PIN, LOW); 
+
+  // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
-  digitalWrite(8, LOW); /* Direction */
+  digitalWrite(DIRECTION_PIN, LOW); 
+  digitalWrite(LED_BUILTIN, HIGH);
+  
   for (long i = 0; i<= 1000; i ++){
   
-  digitalWrite(9, HIGH);
+  digitalWrite(STEP_PIN, HIGH);
   /* delay(2);   */    /* ms */  
-delayMicroseconds(1000);
-  digitalWrite(9, LOW);
-    delayMicroseconds(1000);
+  delayMicroseconds(DELAY_MICROSEC);
+  digitalWrite(STEP_PIN, LOW);
+  delayMicroseconds(DELAY_MICROSEC);
 
   }
 
- digitalWrite(8, HIGH); /* Direction */
+ /* retour 10 fois plus rapide */
+ digitalWrite(LED_BUILTIN, LOW);
+ digitalWrite(DIRECTION_PIN, HIGH); 
  for (long i = 0; i<= 1000; i ++){
   
-  digitalWrite(9, HIGH);
+  digitalWrite(STEP_PIN, HIGH);
   /* delay(2);   */    /* ms */  
-delayMicroseconds(1000);
-  digitalWrite(9, LOW);
-    delayMicroseconds(1000);
+  delayMicroseconds(DELAY_MICROSEC /10); 
+  digitalWrite(STEP_PIN, LOW);
+  delayMicroseconds(DELAY_MICROSEC /10);
 
   }
- digitalWrite(9, HIGH);
+ digitalWrite(STEP_PIN, HIGH);
  delay(5000);
 
   
