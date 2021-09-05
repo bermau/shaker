@@ -15,6 +15,7 @@ Projet inspiré de http://www.schmalzhaus.com/EasyDriver/Examples/EasyDriverExam
 #define DIRECTION_PIN      8
 
 #define DELAY_MICROSEC     1000
+#define SLOW               5  // retour : N fois plus lent
 
 void setup() {               
   pinMode(DIRECTION_PIN, OUTPUT); 
@@ -48,9 +49,9 @@ void loop() {
   
   digitalWrite(STEP_PIN, HIGH);
   /* delay(2);   */    /* ms */  
-  delayMicroseconds(DELAY_MICROSEC /10); 
+  delayMicroseconds(DELAY_MICROSEC /SLOW); 
   digitalWrite(STEP_PIN, LOW);
-  delayMicroseconds(DELAY_MICROSEC /10);
+  delayMicroseconds(DELAY_MICROSEC /SLOW);
 
   }
  digitalWrite(STEP_PIN, HIGH);
